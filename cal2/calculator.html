@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head>
+<title>Calculator from PRODUCTION ENVIRONMENT</title><meta charset="utf-8">
+<script type="text/javascript">
+function inverse() {
+  var num = document.getElementById("n1");
+  num.value = 1/num.value;
+}
+function square() {
+  var num = document.getElementById("n1");
+  num.value = num.value * num.value;
+}
+</script>
+</head>
+
+<h3>My Calculator in PRODUCTION ENVIRONMENT</h3>
+
+<body>
+  Number:
+  <input type="text" id="n1"><p>
+
+  <button onclick="square()"> x<sup>2</sup> </button>
+</body>
+</html>
