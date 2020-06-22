@@ -33,7 +33,8 @@ public class ChessBoard {
         builder.append("\u250C");
 
         for (int i = 0; i < board.length; i++) {
-                builder.append("\u2500").append("\u2500").append("\u2500").append("\u252C");
+                if (i!=7) builder.append("\u2500").append("\u2500").append("\u2500").append("\u252C");
+                else builder.append("\u2500").append("\u2500").append("\u2500").append("\u2510");
         }
         builder.append(newLine);
 
@@ -43,14 +44,19 @@ public class ChessBoard {
                 builder.append(wall);
                 builder.append(board[j][i]);
             }
+            
             builder.append(wall);
             builder.append(newLine);
             builder.append(" ");
-            builder.append("\u251C");
+            if (i!=0) builder.append("\u251C");
+            else builder.append("\u2514");
+       
             for (int j = 0; j < board.length; j++) {             
-                builder.append("\u2500").append("\u2500").append("\u2500").append("\u253C");
+                if (j == 7 &&  i ==0) builder.append("\u2500").append("\u2500").append("\u2500").append("\u2518");
+                else builder.append("\u2500").append("\u2500").append("\u2500").append("\u253C");
             }
             builder.append(newLine);
+            
         }
 
         return builder.toString();
