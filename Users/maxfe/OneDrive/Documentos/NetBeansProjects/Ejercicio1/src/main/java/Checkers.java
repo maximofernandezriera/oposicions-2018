@@ -15,7 +15,6 @@ public class Checkers {
     * Main method creates a ChessBoard object and prints it
     * using its toString() method
     * @param args Unused.
-    * @return Nothing.
     * @exception UnsupportedEncodingException On encoding error.
     */
 	public static void main(String[] args) throws UnsupportedEncodingException {
