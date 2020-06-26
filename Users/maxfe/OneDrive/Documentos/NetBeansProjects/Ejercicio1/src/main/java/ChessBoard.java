@@ -1,107 +1,167 @@
 
 /**
- * Esta clase contendrá el tablero de las damas
+ * Model object for a ChessBoard.
  *
- * @author MÁXIMO FERNÁNDEZ RIERA
+ * @author  Jordi Blasco Planesas<br>
+ * Capacitaci&oacute; digital. Web 2.0 i xarxes socials.<br>
+ * Universitat Oberta de Catalunya (UOC)
+ * @version 2.0
  */
 public class ChessBoard {
 
-    /**
-     * Definimos las Constantes del tablero La celda (casilla) es de un tamaño
-     * de 8x8.
-     */
-    final static int CELL = 8;
-    private final String[][] board;
+    private final String horizontal = "\u2500";
+    private final String vertical = "\u2502";
+    private final String top = "\u252C";
+    private final String bottom = "\u2534";
+    private final String left = "\u251C";
+    private final String right = "\u2524";
+    private final String center = "\u253C";
+    private final String top_left = "\u250C";
+    private final String top_right = "\u2510";
+    private final String bottom_left = "\u2514";
+    private final String bottom_right = "\u2518";
+    private final String NL = System.getProperty("line.separator");
+    private final String space = " ";
+
+    private final String white_cell = "\u2591";
+    private final String black_cell = "\u2588";
+
+    private int rows = 8;
+    private char cols = 'a';
+    private Cell[][] cells = new Cell[8][8];
 
     /**
-     * Clase que implementa el tablero
+     * Returns the graphical representation of the ChessBoard.
      *
-     * To-do El último caracter "|" queda ligeramente descuadrado
-     */
-    public ChessBoard() {
-        this.board = new String[CELL][CELL];
-        initializeBoard();
-    }
-
-    /**
-     * Método que inicializa el tablero
-     */
-    private void initializeBoard() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                //Si el módulo de la suma de las filas y columnas es 0 pintamos la casilla en blanco
-                //Sino la pintamos en negro
-                board[i][j] = (i + j) % 2 == 0 ? "\u2588" + " " : "\u2591" + " ";
-            }
-        }
-    }
-
-    /**
-     * El método toString() de la clase ChessBoard muestra por pantalla el
-     * tablero del juego
-     *
-     * @return el tablero en formato string
+     * @return String with the graphical representation of a ChessBoard.
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        String newLine = System.getProperty("line.separator");
-        // El string wall contiene el código utf8 del carácter 2502: |
-        String wall = "\u2502";
-        builder.append(" ");
-        builder.append(" ");
-        builder.append(" ");
-        //Pintamos las letras de la 'a' a la 'h'
-        for (char c = 'a'; c <= 'h'; c++) {
-            builder.append(" ").append(c).append(" ");
-        }
-        builder.append(newLine);
-        builder.append(" ");
-        //Añadimos el carácter 250C: ┌
-        builder.append("\u250C");
-        //Bucle que recorre el tablero
-        for (int i = 0; i < board.length; i++) {
-            if (i != 7) {
-                //Si no es la última casilla pintamos: - y ┬
-                builder.append("\u2500").append("\u2500").append("\u2500").append("\u252C");
-            } else {
-                //Si lo es pintamos - y ┐
-                builder.append("\u2500").append("\u2500").append("\u2500").append("\u2510");
-            }
-        }
-        builder.append(newLine);
+        StringBuilder sb = new StringBuilder(486);
 
-        //Recorremos el tablero y vamos pintando los caracteres necesarios
-        for (int i = (board[0].length - 1); i >= 0; i--) {
-            builder.append(i + 1);
-            for (int j = 0; j < board.length; j++) {
-                builder.append(wall);
-                builder.append(board[j][i]);
+        StringBuilder cols_top = new StringBuilder(26);
+        cols_top.append(space);
+        for (int i = 0; i < 8; i++) {
+            cols_top.append(space).append(cols).append(space);
+            cols++;
+        }
+        cols_top.append(NL);
+
+        StringBuilder line_top = new StringBuilder(27);
+        line_top.append(space).append(top_left).append(horizontal).append(horizontal).append(top).append(horizontal).append(horizontal)
+                .append(top).append(horizontal).append(horizontal).append(top).append(horizontal).append(horizontal)
+                .append(top).append(horizontal).append(horizontal).append(top).append(horizontal).append(horizontal)
+                .append(top).append(horizontal).append(horizontal).append(top).append(horizontal).append(horizontal)
+                .append(top_right).append(NL);
+
+        StringBuilder line_middle = new StringBuilder(27);
+        line_middle.append(space).append(left).append(horizontal).append(horizontal).append(center).append(horizontal).append(horizontal)
+                .append(center).append(horizontal).append(horizontal).append(center).append(horizontal).append(horizontal)
+                .append(center).append(horizontal).append(horizontal).append(center).append(horizontal).append(horizontal)
+                .append(center).append(horizontal).append(horizontal).append(center).append(horizontal).append(horizontal)
+                .append(right).append(NL);
+
+        StringBuilder line_bottom = new StringBuilder(27);
+        line_bottom.append(space).append(bottom_left).append(horizontal).append(horizontal).append(bottom).append(horizontal).append(horizontal)
+                .append(bottom).append(horizontal).append(horizontal).append(bottom).append(horizontal).append(horizontal)
+                .append(bottom).append(horizontal).append(horizontal).append(bottom).append(horizontal).append(horizontal)
+                .append(bottom).append(horizontal).append(horizontal).append(bottom).append(horizontal).append(horizontal)
+                .append(bottom_right).append(NL);
+
+        sb.append(cols_top);
+        sb.append(line_top);
+
+        for (int i = 0; i < 4; i++) {
+            sb.append(rows);
+            rows--;
+            for (int j = 0; j < 4; j++) {
+                sb.append(vertical).append(white_cell).append(space).append(vertical).append(black_cell).append(space);
             }
-            builder.append(wall);
-            builder.append(newLine);
-            builder.append(" ");
-            //Pintamos el caracter ├ si no es la última casilla
-            if (i != 0) {
-                builder.append("\u251C");
-            } else {
-                //si es la última casilla pintamos "└" 
-                builder.append("\u2514");
+
+            sb.append(vertical).append(NL).append(line_middle);
+
+            sb.append(rows);
+            rows--;
+            for (int j = 0; j < 4; j++) {
+                sb.append(vertical).append(black_cell).append(space).append(vertical).append(white_cell).append(space);
             }
-            //Seguimos pintando los caracteres necesarios
-            for (int j = 0; j < board.length; j++) {
-                //Si no es el principio ni el final pintamos "-" y "┘"
-                if (j == 7 && i == 0) {
-                    builder.append("\u2500").append("\u2500").append("\u2500").append("\u2518");
-                } else {
-                    //En caso contrario pintamos "-" y  "┼"
-                    builder.append("\u2500").append("\u2500").append("\u2500").append("\u253C");
+
+            sb.append(vertical).append(NL);
+
+            if (i != 3) {
+                sb.append(line_middle);
+            }
+        }
+
+        sb.append(line_bottom).append(NL);
+
+        return sb.toString();
+    }
+
+    //inicializará el array bidimensional, creará el tablero y dispondrá todas las piezas en su posición inicial 
+    public void ChessBoard() {
+        initializeBoard();
+        initializePieces();
+    }
+
+    private void initializeBoard() {
+        for (Cell[] cell : cells) {
+            for (int i = 0; i < cells[0].length; i++) {
+                cell[i] = null;
+            }
+        }
+    }
+
+    private void initializePieces() {
+        cells[2][0].setPiece(new Pawn(true));
+        cells[5][0].setPiece(new Pawn(true));
+        cells[1][0].setPiece(new Pawn(true));
+        cells[6][0].setPiece(new Pawn(true));
+        cells[0][0].setPiece(new Pawn(true));
+        cells[7][0].setPiece(new Pawn(true));
+        cells[3][0].setPiece(new Pawn(true));
+        cells[4][0].setPiece(new Pawn(true));
+        cells[0][1].setPiece(new Pawn(true));
+        cells[1][1].setPiece(new Pawn(true));
+        cells[2][1].setPiece(new Pawn(true));
+        cells[3][1].setPiece(new Pawn(true));
+        cells[4][1].setPiece(new Pawn(true));
+        cells[5][1].setPiece(new Pawn(true));
+        cells[6][1].setPiece(new Pawn(true));
+        cells[7][1].setPiece(new Pawn(true));
+        cells[2][7].setPiece(new Pawn(false));
+        cells[5][7].setPiece(new Pawn(false));
+        cells[1][7].setPiece(new Pawn(false));
+        cells[6][7].setPiece(new Pawn(false));
+        cells[0][7].setPiece(new Pawn(false));
+        cells[7][7].setPiece(new Pawn(false));
+        cells[3][7].setPiece(new Pawn(false));
+        cells[4][7].setPiece(new Pawn(false));
+        cells[0][6].setPiece(new Pawn(false));
+        cells[1][6].setPiece(new Pawn(false));
+        cells[2][6].setPiece(new Pawn(false));
+        cells[3][6].setPiece(new Pawn(false));
+        cells[4][6].setPiece(new Pawn(false));
+        cells[5][6].setPiece(new Pawn(false));
+        cells[6][6].setPiece(new Pawn(false));
+        cells[7][6].setPiece(new Pawn(false));
+
+    }
+
+    public Cell getCell(String position) {
+        Cell result = null;
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (cells[x][y].equals(position)) {
+                    result = cells[x][y];
                 }
             }
-            builder.append(newLine);
-
         }
-        //Devolvemos el tablero como una cadena
-        return builder.toString();
+        return result;
     }
+
+    public void movePiece(String initP, String finalP) {
+        movePiece(getCell(initP).toString(), getCell(finalP).toString());
+    }
+
 }
