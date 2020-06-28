@@ -2,8 +2,8 @@
 public class Queen extends Piece {
 
     //contendrá dos constantes con su representación gráfica en blanco y en negro.
-    private static final String WHITE = "\u25CE";
-    private static final String BLACK = "\u25C9";
+    private static final String WHITE_QUEEN = "\u25CE";
+    private static final String BLACK_QUEEN = "\u25C9";
 
     public Queen(Boolean color) {
 
@@ -12,14 +12,11 @@ public class Queen extends Piece {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        Queen q = new Queen(true);
-        if (q.getColour().equals(Piece.WHITE)) {
-            sb.append(WHITE);
+        if (this.getColour().equals(Queen.WHITE)) {
+            return WHITE_QUEEN;
         } else {
-            sb.append(BLACK);
+            return BLACK_QUEEN;
         }
-        return sb.toString();
     }
 
 }

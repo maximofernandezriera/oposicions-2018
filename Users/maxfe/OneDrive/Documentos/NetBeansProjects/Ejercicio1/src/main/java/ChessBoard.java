@@ -28,7 +28,15 @@ public class ChessBoard {
 
     private int rows = 8;
     private char cols = 'a';
-    private Cell[][] cells = new Cell[8][8];
+    private final Cell[][] cells = new Cell[8][8];
+    int positionX;
+    int positionY;
+
+    //inicializará el array bidimensional, creará el tablero y dispondrá todas las piezas en su posición inicial 
+    public ChessBoard() {
+        initializeBoard();
+        initializePieces();
+    }
 
     /**
      * Returns the graphical representation of the ChessBoard.
@@ -98,18 +106,25 @@ public class ChessBoard {
         return sb.toString();
     }
 
-    //inicializará el array bidimensional, creará el tablero y dispondrá todas las piezas en su posición inicial 
-    public void ChessBoard() {
-        initializeBoard();
-        initializePieces();
-    }
-
     private void initializeBoard() {
-        for (Cell[] cell : cells) {
-            for (int i = 0; i < cells[0].length; i++) {
-                cell[i] = null;
+
+        for (int i = 0; i != cells.length; i = i + 1) {
+            for (int j = 0; j != cells.length; j = j + 1) {
+                cells[i][j] = null;
             }
         }
+        //White pawns
+        Pawn pawn = new Pawn(true);
+        for (int i = 0; i < cells.length; i++) {
+            cells[1][i] = new Cell(true, pawn);
+        }
+
+        // Black pawns
+        for (int j = 0; j < cells.length; j++) {
+            cells[6][j] = new Cell(true, pawn);
+        }
+//
+
     }
 
     private void initializePieces() {
@@ -137,31 +152,17 @@ public class ChessBoard {
         cells[7][7].setPiece(new Pawn(false));
         cells[3][7].setPiece(new Pawn(false));
         cells[4][7].setPiece(new Pawn(false));
-        cells[0][6].setPiece(new Pawn(false));
-        cells[1][6].setPiece(new Pawn(false));
-        cells[2][6].setPiece(new Pawn(false));
-        cells[3][6].setPiece(new Pawn(false));
-        cells[4][6].setPiece(new Pawn(false));
-        cells[5][6].setPiece(new Pawn(false));
-        cells[6][6].setPiece(new Pawn(false));
-        cells[7][6].setPiece(new Pawn(false));
-
     }
 
+    //El método getCell(String position) retorna la Cell ubicada en la position indicada
     public Cell getCell(String position) {
-        Cell result = null;
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                if (cells[x][y].equals(position)) {
-                    result = cells[x][y];
-                }
-            }
-        }
-        return result;
+        positionX = (char) position.toCharArray()[0] - 97;
+        positionY = Integer.parseInt(position.substring(1, 2)) - 1;
+        return cells[positionX][positionY];
     }
 
     public void movePiece(String initP, String finalP) {
-        movePiece(getCell(initP).toString(), getCell(finalP).toString());
+
     }
 
 }

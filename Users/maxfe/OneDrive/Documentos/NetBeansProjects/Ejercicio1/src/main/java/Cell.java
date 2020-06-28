@@ -1,32 +1,34 @@
 
+import java.util.Objects;
+
 /**
  * Model object for a ChessBoard.
  *
- * @author  Jordi Blasco Planesas<br>
+ * @author Jordi Blasco Planesas<br>
  * Capacitaci&oacute; digital. Web 2.0 i xarxes socials.<br>
  * Universitat Oberta de Catalunya (UOC)
  * @version 2.0
  */
 public class Cell {
 
-    private static final Boolean BLACK = false;
     private static final Boolean WHITE = true;
+    private static final Boolean BLACK = false;
 
+    private Boolean colour;
     private Piece piece;
 
-    public Cell(Boolean col, Piece p) {
+    public Cell(Boolean col, Piece pie) {
 
-        if (col = WHITE) {
-            this.setColour(WHITE);
-        } else {
+        if (col == Cell.BLACK) {
             this.setColour(BLACK);
+        } else {
+            setColour(WHITE);
         }
 
-        if (p != null) {
+        if (pie == null) {
             this.empty();
         }
-
-        this.setPiece(p);
+        this.setPiece(pie);
     }
 
     public boolean hasPiece() {
@@ -39,10 +41,11 @@ public class Cell {
 
     @Override
     public String toString() {
-        if (piece == null) {
+        if (this.piece != null) {
+            return colour.toString() + piece.toString();
+        } else {
             return "  ";
         }
-        return piece.toString();
     }
 
     private void empty() {
@@ -53,8 +56,8 @@ public class Cell {
         return piece;
     }
 
-    public void setPiece(Piece piece) {
-        this.piece = piece;
+    protected void setPiece(Piece pie) {
+        this.piece = pie;
     }
 
     public Boolean getColour() {

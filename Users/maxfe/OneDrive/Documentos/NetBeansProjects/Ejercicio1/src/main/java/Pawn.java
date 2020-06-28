@@ -2,8 +2,8 @@
 public class Pawn extends Piece {
 
     //contendrá dos constantes con su representación gráfica en blanco y en negro.
-    private static final String WHITE = "\u25CB";
-    private static final String BLACK = "\u25CF";
+    private static final String WHITE_PAWN = "\u25CB";
+    private static final String BLACK_PAWN = "\u25CF";
 
     public Pawn(Boolean color) {
 
@@ -12,13 +12,10 @@ public class Pawn extends Piece {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        Queen q = new Queen(true);
-        if (q.getColour().equals(Piece.WHITE)) {
-            sb.append(WHITE);
+        if (this.getColour().equals(Pawn.WHITE)) {
+            return WHITE_PAWN;
         } else {
-            sb.append(BLACK);
+            return BLACK_PAWN;
         }
-        return sb.toString();
     }
 }

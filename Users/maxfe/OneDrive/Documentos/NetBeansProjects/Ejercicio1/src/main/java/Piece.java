@@ -1,8 +1,10 @@
 
+import java.util.Objects;
+
 /**
  * Model object for a ChessBoard.
  *
- * @author  Jordi Blasco Planesas<br>
+ * @author Jordi Blasco Planesas<br>
  * Capacitaci&oacute; digital. Web 2.0 i xarxes socials.<br>
  * Universitat Oberta de Catalunya (UOC)
  * @version 2.0
@@ -10,12 +12,15 @@
 public abstract class Piece {
 
     public static final Boolean WHITE = true;
-    public static final Boolean BLACK =false;
+    public static final Boolean BLACK = false;
     protected Boolean color;
-    
 
     public Piece(Boolean col) {
-        this.color = col;
+        if (Objects.equals(col, WHITE)) {
+            this.setColor(WHITE);
+        } else {
+            this.setColor(BLACK);
+        }
     }
 
     public Boolean getColour() {
