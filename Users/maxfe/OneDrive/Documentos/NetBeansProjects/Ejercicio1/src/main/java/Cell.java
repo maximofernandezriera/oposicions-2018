@@ -45,7 +45,7 @@ public class Cell {
         if (this.piece != null) {   //        &&  (piece instanceof Pawn) {   
             return this.getColour()+ piece.toString();
         } else {
-            return this.toString() + "  ";
+            return "  ";
         }
     }
 

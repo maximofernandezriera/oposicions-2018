@@ -1,7 +1,3 @@
-
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Model object for a ChessBoard.
  *
@@ -48,71 +44,65 @@ public class ChessBoard {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(486);
-
-        StringBuilder cols_top = new StringBuilder(26);
-        cols_top.append(space);
-        for (int i = 0; i < 8; i++) {
-            cols_top.append(space).append(cols).append(space);
-            cols++;
+        StringBuilder builder = new StringBuilder();
+        String newLine = System.getProperty("line.separator");
+        // El string wall contiene el código utf8 del carácter 2502: |
+        String wall = "\u2502";
+        builder.append(" ");
+        builder.append(" ");
+        builder.append(" ");
+        //Pintamos las letras de la 'a' a la 'h'
+        for (char c = 'a'; c <= 'h'; c++) {
+            builder.append(" ").append(c).append(" ");
         }
-        cols_top.append(NL);
-
-        StringBuilder line_top = new StringBuilder(27);
-        line_top.append(space).append(top_left).append(horizontal).append(horizontal).append(top).append(horizontal).append(horizontal)
-                .append(top).append(horizontal).append(horizontal).append(top).append(horizontal).append(horizontal)
-                .append(top).append(horizontal).append(horizontal).append(top).append(horizontal).append(horizontal)
-                .append(top).append(horizontal).append(horizontal).append(top).append(horizontal).append(horizontal)
-                .append(top_right).append(NL);
-
-        StringBuilder line_middle = new StringBuilder(27);
-        line_middle.append(space).append(left).append(horizontal).append(horizontal).append(center).append(horizontal).append(horizontal)
-                .append(center).append(horizontal).append(horizontal).append(center).append(horizontal).append(horizontal)
-                .append(center).append(horizontal).append(horizontal).append(center).append(horizontal).append(horizontal)
-                .append(center).append(horizontal).append(horizontal).append(center).append(horizontal).append(horizontal)
-                .append(right).append(NL);
-
-        StringBuilder line_bottom = new StringBuilder(27);
-        line_bottom.append(space).append(bottom_left).append(horizontal).append(horizontal).append(bottom).append(horizontal).append(horizontal)
-                .append(bottom).append(horizontal).append(horizontal).append(bottom).append(horizontal).append(horizontal)
-                .append(bottom).append(horizontal).append(horizontal).append(bottom).append(horizontal).append(horizontal)
-                .append(bottom).append(horizontal).append(horizontal).append(bottom).append(horizontal).append(horizontal)
-                .append(bottom_right).append(NL);
-
-        sb.append(cols_top);
-        sb.append(line_top);
-
-        for (int i = 0; i < 4; i++) {
-            sb.append(rows);
-            rows--;
-            for (int j = 0; j < 4; j++) {
-                sb.append(vertical).append(white_cell).append(space).append(vertical).append(black_cell).append(space);
-            }
-
-            sb.append(vertical).append(NL).append(line_middle);
-
-            sb.append(rows);
-            rows--;
-            for (int j = 0; j < 4; j++) {
-                sb.append(vertical).append(black_cell).append(space).append(vertical).append(white_cell).append(space);
-            }
-
-            sb.append(vertical).append(NL);
-
-            if (i != 3) {
-                sb.append(line_middle);
+        builder.append(newLine);
+        builder.append(" ");
+        //Añadimos el carácter 250C: ┌
+        builder.append("\u250C");
+        //Bucle que recorre el tablero
+        for (int i = 0; i < cells.length; i++) {
+            if (i != 7) {
+                //Si no es la última casilla pintamos: - y ┬
+                builder.append("\u2500").append("\u2500").append("\u2500").append("\u252C");
+            } else {
+                //Si lo es pintamos - y ┐
+                builder.append("\u2500").append("\u2500").append("\u2500").append("\u2510");
             }
         }
+        builder.append(newLine);
 
-        sb.append(line_bottom).append(NL);
-        //las líneas y las coordenadas de filas
-        for (int i = 0; i < cells.length - 1; i++) {
-            for (int j = 0; j < cells.length - 1; i++) {
-                sb.append(cells[i][j].toString());
+        //Recorremos el tablero y vamos pintando los caracteres necesarios
+        for (int i = (cells[0].length - 1); i >= 0; i--) {
+            builder.append(i + 1);
+            for (int j = 0; j < cells.length; j++) {
+                builder.append(wall);
+                builder.append(cells[j][i]);
             }
-        }
+            builder.append(wall);
+            builder.append(newLine);
+            builder.append(" ");
+            //Pintamos el caracter ├ si no es la última casilla
+            if (i != 0) {
+                builder.append("\u251C");
+            } else {
+                //si es la última casilla pintamos "└" 
+                builder.append("\u2514");
+            }
+            //Seguimos pintando los caracteres necesarios
+            for (int j = 0; j < cells.length; j++) {
+                //Si no es el principio ni el final pintamos "-" y "┘"
+                if (j == 7 && i == 0) {
+                    builder.append("\u2500").append("\u2500").append("\u2500").append("\u2518");
+                } else {
+                    //En caso contrario pintamos "-" y  "┼"
+                    builder.append("\u2500").append("\u2500").append("\u2500").append("\u253C");
+                }
+            }
+            builder.append(newLine);
 
-        return sb.toString();
+        }
+        //Devolvemos el tablero como una cadena
+        return builder.toString();
     }
 
     private void initializeBoard() {
@@ -120,8 +110,10 @@ public class ChessBoard {
             for (int j = 0; j < cells.length; j++) {
                 if ((j % 2) == 0) {
                     cells[i][j] = new Cell(Cell.BLACK, null);
+                    cells[i][j].toString();
                 } else {
                     cells[i][j] = new Cell(Cell.WHITE, null);
+                    cells[i][j].toString();
                 }
             }
         }
