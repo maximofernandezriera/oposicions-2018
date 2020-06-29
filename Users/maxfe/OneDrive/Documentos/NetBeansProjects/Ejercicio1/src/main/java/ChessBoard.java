@@ -102,7 +102,8 @@ public class ChessBoard {
         }
 
         sb.append(line_bottom).append(NL);
-
+        //las líneas y las coordenadas de filas
+        sb.append(cells[0][0].toString());
         return sb.toString();
     }
 
@@ -129,9 +130,7 @@ public class ChessBoard {
 		return 8 - Character.getNumericValue(y);
 	}
 
-    private void setPiece(Piece piece, String position) {
-        
-       // pieces.set(position.getX(), piece);
+    private void setPiece(Piece piece, String position) {  
         //recupera la celda identificada por position y le asigna la Piece facilitada
        this.getCell(position).setPiece(piece);
     }
@@ -139,8 +138,37 @@ public class ChessBoard {
 //El método setPiece(Piece piece, String position) recupera la celda identificada por position y le asigna la Piece facilitada. Ejemplos de posiciones: a2, b4, c3, f7, etc
     private void initializePieces() {
 
-        this.setPiece(new Pawn(Piece.WHITE), "a3");
-        this.setPiece(new Pawn(Piece.WHITE),"c3");
+    // Se instancian y añaden los peones blancos
+    this.setPiece(new Pawn(Piece.WHITE),"a3");
+    this.setPiece(new Pawn(Piece.WHITE),"c3");
+    this.setPiece(new Pawn(Piece.WHITE),"e3");
+    this.setPiece(new Pawn(Piece.WHITE),"g3");
+    // ...
+    this.setPiece(new Pawn(Piece.WHITE),"b2");
+    this.setPiece(new Pawn(Piece.WHITE),"d2");
+    this.setPiece(new Pawn(Piece.WHITE),"f2");
+    //this.setPiece(new Pawn(Piece.WHITE),"h2");
+    // ...
+    this.setPiece(new Pawn(Piece.WHITE),"a1");
+    this.setPiece(new Pawn(Piece.WHITE),"c1");
+    this.setPiece(new Pawn(Piece.WHITE),"e1");
+    this.setPiece(new Pawn(Piece.WHITE),"g1");
+
+    // Se instancian y añaden los peones negros
+    this.setPiece(new Pawn(Piece.BLACK),"b8");
+    this.setPiece(new Pawn(Piece.BLACK),"d8");
+    this.setPiece(new Pawn(Piece.BLACK),"f8");
+    this.setPiece(new Pawn(Piece.BLACK),"h8");
+    // ...
+    this.setPiece(new Pawn(Piece.BLACK),"a7");
+    this.setPiece(new Pawn(Piece.BLACK),"c7");
+    this.setPiece(new Pawn(Piece.BLACK),"e7");
+    this.setPiece(new Pawn(Piece.BLACK),"g7");
+    // ...
+    this.setPiece(new Pawn(Piece.BLACK),"b6");
+    this.setPiece(new Pawn(Piece.BLACK),"d6");
+    this.setPiece(new Pawn(Piece.BLACK),"f6");
+    this.setPiece(new Pawn(Piece.BLACK),"h6");
     }
 
     //El método getCell(String position) retorna la Cell ubicada en la position indicada
