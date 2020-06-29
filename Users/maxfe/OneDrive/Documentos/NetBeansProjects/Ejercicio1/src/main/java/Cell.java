@@ -1,6 +1,3 @@
-
-import java.util.Objects;
-
 /**
  * Model object for a ChessBoard.
  *
@@ -44,11 +41,21 @@ public class Cell {
 
     @Override
     public String toString() {
-        if (this.getColour() == WHITE) {
-            return white_cell + this.getPiece();
+        StringBuilder sb = new StringBuilder();
+        if (this.getPiece() != null) {
+            if (this.getColour() == WHITE) {
+                sb.append(white_cell + this.getPiece());
+            } else {
+                sb.append(black_cell + this.getPiece());
+            }
         } else {
-            return black_cell + this.getPiece();
+            if (this.getColour() == WHITE) {
+                sb.append(white_cell).append("");
+            } else {
+                sb.append(black_cell).append("");
+            }
         }
+        return sb.toString();
     }
 
     private void empty() {

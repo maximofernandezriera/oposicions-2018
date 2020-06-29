@@ -108,7 +108,7 @@ public class ChessBoard {
     private void initializeBoard() {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells.length; j++) {
-                if ((j % 2) == 0) {
+                if ((i + j) % 2 == 0) {
                     cells[i][j] = new Cell(Cell.BLACK, null);
                 } else {
                     cells[i][j] = new Cell(Cell.WHITE, null);
