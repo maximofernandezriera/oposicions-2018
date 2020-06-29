@@ -25,12 +25,15 @@ public class Cell {
             this.setColour(WHITE);
         }
 
-        if (piece == null) this.empty();
-        else this.setPiece(pie);
+        if (piece == null) {
+            this.empty();
+        } else {
+            this.setPiece(pie);
+        }
     }
 
     public boolean hasPiece() {
-        if (piece != null) {
+        if (this.piece != null) {
             return true;
         } else {
             return false;
@@ -39,10 +42,10 @@ public class Cell {
 
     @Override
     public String toString() {
-        if (this.piece != null) {
-            return colour.toString() + piece.toString();
+        if (this.piece != null) {   //        &&  (piece instanceof Pawn) {   
+            return this.getColour()+ piece.toString();
         } else {
-            return "  ";
+            return this.toString() + "  ";
         }
     }
 
@@ -51,7 +54,7 @@ public class Cell {
     }
 
     public Piece getPiece() {
-        return piece;
+        return this.piece;
     }
 
     public void setPiece(Piece pie) {

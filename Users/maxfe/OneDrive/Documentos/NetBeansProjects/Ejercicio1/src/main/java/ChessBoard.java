@@ -1,8 +1,11 @@
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Model object for a ChessBoard.
  *
- * @author  Jordi Blasco Planesas<br>
+ * @author Jordi Blasco Planesas<br>
  * Capacitaci&oacute; digital. Web 2.0 i xarxes socials.<br>
  * Universitat Oberta de Catalunya (UOC)
  * @version 2.0
@@ -103,14 +106,18 @@ public class ChessBoard {
 
         sb.append(line_bottom).append(NL);
         //las líneas y las coordenadas de filas
-        sb.append(cells[0][0].toString());
+        for (int i = 0; i < cells.length - 1; i++) {
+            for (int j = 0; j < cells.length - 1; i++) {
+                sb.append(cells[i][j].toString());
+            }
+        }
+
         return sb.toString();
     }
 
     private void initializeBoard() {
-        //fila 0r 
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells.length; j++) {
                 if ((j % 2) == 0) {
                     cells[i][j] = new Cell(Cell.BLACK, null);
                 } else {
@@ -119,56 +126,108 @@ public class ChessBoard {
             }
         }
     }
-    
-    public int getX(String position) {
-		char x = position.charAt(0);
-		return x - 'a';
-	}
-	
-	public int getY(String position) {
-		char y = position.charAt(1);
-		return 8 - Character.getNumericValue(y);
-	}
 
-    private void setPiece(Piece piece, String position) {  
+    public int getX(String position) {
+        int x = 0;
+        switch (position.substring(0, 1)) {
+            case "a":
+                x = 0;
+                break;
+            case "b":
+                x = 1;
+                break;
+            case "c":
+                x = 2;
+                break;
+            case "d":
+                x = 3;
+                break;
+            case "e":
+                x = 4;
+                break;
+            case "f":
+                x = 5;
+                break;
+            case "g":
+                x = 6;
+                break;
+            case "h":
+                x = 7;
+                break;
+        }
+        return x;
+    }
+
+    public int getY(String position) {
+        int y = 0;
+        switch (position.substring(1, 2)) {
+            case "1":
+                y = 0;
+                break;
+            case "2":
+                y = 1;
+                break;
+            case "3":
+                y = 2;
+                break;
+            case "4":
+                y = 3;
+                break;
+            case "5":
+                y = 4;
+                break;
+            case "6":
+                y = 5;
+                break;
+            case "7":
+                y = 6;
+                break;
+            case "8":
+                y = 7;
+                break;
+        }
+        return y;
+    }
+
+    private void setPiece(Piece piece, String position) {
         //recupera la celda identificada por position y le asigna la Piece facilitada
-       this.getCell(position).setPiece(piece);
+        this.getCell(position).setPiece(piece);
     }
 
 //El método setPiece(Piece piece, String position) recupera la celda identificada por position y le asigna la Piece facilitada. Ejemplos de posiciones: a2, b4, c3, f7, etc
     private void initializePieces() {
 
-    // Se instancian y añaden los peones blancos
-    this.setPiece(new Pawn(Piece.WHITE),"a3");
-    this.setPiece(new Pawn(Piece.WHITE),"c3");
-    this.setPiece(new Pawn(Piece.WHITE),"e3");
-    this.setPiece(new Pawn(Piece.WHITE),"g3");
-    // ...
-    this.setPiece(new Pawn(Piece.WHITE),"b2");
-    this.setPiece(new Pawn(Piece.WHITE),"d2");
-    this.setPiece(new Pawn(Piece.WHITE),"f2");
-    //this.setPiece(new Pawn(Piece.WHITE),"h2");
-    // ...
-    this.setPiece(new Pawn(Piece.WHITE),"a1");
-    this.setPiece(new Pawn(Piece.WHITE),"c1");
-    this.setPiece(new Pawn(Piece.WHITE),"e1");
-    this.setPiece(new Pawn(Piece.WHITE),"g1");
+        // Se instancian y añaden los peones blancos
+        this.setPiece(new Pawn(Piece.WHITE), "a3");
+        this.setPiece(new Pawn(Piece.WHITE), "c3");
+        this.setPiece(new Pawn(Piece.WHITE), "e3");
+        this.setPiece(new Pawn(Piece.WHITE), "g3");
+        // ...
+        this.setPiece(new Pawn(Piece.WHITE), "b2");
+        this.setPiece(new Pawn(Piece.WHITE), "d2");
+        this.setPiece(new Pawn(Piece.WHITE), "f2");
+        this.setPiece(new Pawn(Piece.WHITE), "h2");
+        // ...
+        this.setPiece(new Pawn(Piece.WHITE), "a1");
+        this.setPiece(new Pawn(Piece.WHITE), "c1");
+        this.setPiece(new Pawn(Piece.WHITE), "e1");
+        this.setPiece(new Pawn(Piece.WHITE), "g1");
 
-    // Se instancian y añaden los peones negros
-    this.setPiece(new Pawn(Piece.BLACK),"b8");
-    this.setPiece(new Pawn(Piece.BLACK),"d8");
-    this.setPiece(new Pawn(Piece.BLACK),"f8");
-    this.setPiece(new Pawn(Piece.BLACK),"h8");
-    // ...
-    this.setPiece(new Pawn(Piece.BLACK),"a7");
-    this.setPiece(new Pawn(Piece.BLACK),"c7");
-    this.setPiece(new Pawn(Piece.BLACK),"e7");
-    this.setPiece(new Pawn(Piece.BLACK),"g7");
-    // ...
-    this.setPiece(new Pawn(Piece.BLACK),"b6");
-    this.setPiece(new Pawn(Piece.BLACK),"d6");
-    this.setPiece(new Pawn(Piece.BLACK),"f6");
-    this.setPiece(new Pawn(Piece.BLACK),"h6");
+        // Se instancian y añaden los peones negros
+        this.setPiece(new Pawn(Piece.BLACK), "b8");
+        this.setPiece(new Pawn(Piece.BLACK), "d8");
+        this.setPiece(new Pawn(Piece.BLACK), "f8");
+        this.setPiece(new Pawn(Piece.BLACK), "h8");
+        // ...
+        this.setPiece(new Pawn(Piece.BLACK), "a7");
+        this.setPiece(new Pawn(Piece.BLACK), "c7");
+        this.setPiece(new Pawn(Piece.BLACK), "e7");
+        this.setPiece(new Pawn(Piece.BLACK), "g7");
+        // ...
+        this.setPiece(new Pawn(Piece.BLACK), "b6");
+        this.setPiece(new Pawn(Piece.BLACK), "d6");
+        this.setPiece(new Pawn(Piece.BLACK), "f6");
+        this.setPiece(new Pawn(Piece.BLACK), "h6");
     }
 
     //El método getCell(String position) retorna la Cell ubicada en la position indicada
@@ -179,7 +238,9 @@ public class ChessBoard {
     }
 
     public void movePiece(String initialPosition, String finalPosition) {
-        this.setPiece(this.getCell(initialPosition).getPiece(),finalPosition);
+        if (!this.getCell(finalPosition).hasPiece()) {
+            this.setPiece(this.getCell(initialPosition).getPiece(), finalPosition);
+        }
     }
 
 }
