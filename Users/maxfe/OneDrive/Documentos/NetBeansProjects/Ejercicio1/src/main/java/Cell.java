@@ -11,8 +11,8 @@ import java.util.Objects;
  */
 public class Cell {
 
-    private static final Boolean WHITE = true;
-    private static final Boolean BLACK = false;
+    static final Boolean WHITE = true;
+    static final Boolean BLACK = false;
 
     private Boolean colour;
     private Piece piece;
@@ -22,13 +22,11 @@ public class Cell {
         if (col == Cell.BLACK) {
             this.setColour(BLACK);
         } else {
-            setColour(WHITE);
+            this.setColour(WHITE);
         }
 
-        if (pie == null) {
-            this.empty();
-        }
-        this.setPiece(pie);
+        if (piece == null) this.empty();
+        else this.setPiece(pie);
     }
 
     public boolean hasPiece() {
@@ -56,7 +54,7 @@ public class Cell {
         return piece;
     }
 
-    protected void setPiece(Piece pie) {
+    public void setPiece(Piece pie) {
         this.piece = pie;
     }
 
@@ -65,7 +63,7 @@ public class Cell {
     }
 
     private void setColour(Boolean col) {
-        piece.color = col;
+        this.colour = col;
     }
 
 }

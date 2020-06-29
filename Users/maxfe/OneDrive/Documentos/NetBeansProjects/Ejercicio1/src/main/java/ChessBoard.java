@@ -107,62 +107,51 @@ public class ChessBoard {
     }
 
     private void initializeBoard() {
-
-        for (int i = 0; i != cells.length; i = i + 1) {
-            for (int j = 0; j != cells.length; j = j + 1) {
-                cells[i][j] = null;
+        //fila 0r 
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                if ((j % 2) == 0) {
+                    cells[i][j] = new Cell(Cell.BLACK, null);
+                } else {
+                    cells[i][j] = new Cell(Cell.WHITE, null);
+                }
             }
         }
-        //White pawns
-        Pawn pawn = new Pawn(true);
-        for (int i = 0; i < cells.length; i++) {
-            cells[1][i] = new Cell(true, pawn);
-        }
+    }
+    
+    public int getX(String position) {
+		char x = position.charAt(0);
+		return x - 'a';
+	}
+	
+	public int getY(String position) {
+		char y = position.charAt(1);
+		return 8 - Character.getNumericValue(y);
+	}
 
-        // Black pawns
-        for (int j = 0; j < cells.length; j++) {
-            cells[6][j] = new Cell(true, pawn);
-        }
-//
-
+    private void setPiece(Piece piece, String position) {
+        
+       // pieces.set(position.getX(), piece);
+        //recupera la celda identificada por position y le asigna la Piece facilitada
+       this.getCell(position).setPiece(piece);
     }
 
+//El método setPiece(Piece piece, String position) recupera la celda identificada por position y le asigna la Piece facilitada. Ejemplos de posiciones: a2, b4, c3, f7, etc
     private void initializePieces() {
-        cells[2][0].setPiece(new Pawn(true));
-        cells[5][0].setPiece(new Pawn(true));
-        cells[1][0].setPiece(new Pawn(true));
-        cells[6][0].setPiece(new Pawn(true));
-        cells[0][0].setPiece(new Pawn(true));
-        cells[7][0].setPiece(new Pawn(true));
-        cells[3][0].setPiece(new Pawn(true));
-        cells[4][0].setPiece(new Pawn(true));
-        cells[0][1].setPiece(new Pawn(true));
-        cells[1][1].setPiece(new Pawn(true));
-        cells[2][1].setPiece(new Pawn(true));
-        cells[3][1].setPiece(new Pawn(true));
-        cells[4][1].setPiece(new Pawn(true));
-        cells[5][1].setPiece(new Pawn(true));
-        cells[6][1].setPiece(new Pawn(true));
-        cells[7][1].setPiece(new Pawn(true));
-        cells[2][7].setPiece(new Pawn(false));
-        cells[5][7].setPiece(new Pawn(false));
-        cells[1][7].setPiece(new Pawn(false));
-        cells[6][7].setPiece(new Pawn(false));
-        cells[0][7].setPiece(new Pawn(false));
-        cells[7][7].setPiece(new Pawn(false));
-        cells[3][7].setPiece(new Pawn(false));
-        cells[4][7].setPiece(new Pawn(false));
+
+        this.setPiece(new Pawn(Piece.WHITE), "a3");
+        this.setPiece(new Pawn(Piece.WHITE),"c3");
     }
 
     //El método getCell(String position) retorna la Cell ubicada en la position indicada
     public Cell getCell(String position) {
-        positionX = (char) position.toCharArray()[0] - 97;
-        positionY = Integer.parseInt(position.substring(1, 2)) - 1;
-        return cells[positionX][positionY];
+        positionX = getX(position);
+        positionY = getY(position);
+        return this.cells[positionX][positionY];
     }
 
-    public void movePiece(String initP, String finalP) {
-
+    public void movePiece(String initialPosition, String finalPosition) {
+        this.setPiece(this.getCell(initialPosition).getPiece(),finalPosition);
     }
 
 }
