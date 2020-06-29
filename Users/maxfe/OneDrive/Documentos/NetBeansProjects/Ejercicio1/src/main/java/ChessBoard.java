@@ -1,3 +1,4 @@
+
 /**
  * Model object for a ChessBoard.
  *
@@ -22,8 +23,7 @@ public class ChessBoard {
     private final String NL = System.getProperty("line.separator");
     private final String space = " ";
 
-    private final String white_cell = "\u2591";
-    private final String black_cell = "\u2588";
+
 
     private int rows = 8;
     private char cols = 'a';
@@ -110,10 +110,8 @@ public class ChessBoard {
             for (int j = 0; j < cells.length; j++) {
                 if ((j % 2) == 0) {
                     cells[i][j] = new Cell(Cell.BLACK, null);
-                    cells[i][j].toString();
                 } else {
                     cells[i][j] = new Cell(Cell.WHITE, null);
-                    cells[i][j].toString();
                 }
             }
         }
