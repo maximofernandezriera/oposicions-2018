@@ -1,4 +1,11 @@
-
+/**
+ * Model object for ChessPlayer.
+ *
+ * @author Máximo Fernández Riera<br
+ * Taller de Java para programadores<br>
+ * Universitat Oberta de Catalunya (UOC)
+ * @version 2.0
+ */
 public class Queen extends Piece {
 
     //contendrá dos constantes con su representación gráfica en blanco y en negro.

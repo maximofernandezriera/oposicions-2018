@@ -1,11 +1,10 @@
-
 import java.util.Objects;
 
 /**
- * Model object for a ChessBoard.
+ * Model object for ChessPlayer.
  *
- * @author Jordi Blasco Planesas<br>
- * Capacitaci&oacute; digital. Web 2.0 i xarxes socials.<br>
+ * @author Máximo Fernández Riera<br
+ * Taller de Java para programadores<br>
  * Universitat Oberta de Catalunya (UOC)
  * @version 2.0
  */

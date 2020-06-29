@@ -1,30 +1,14 @@
 
 /**
- * Model object for a ChessBoard.
+ * Model object for ChessPlayer.
  *
- * @author Jordi Blasco Planesas<br>
- * Capacitaci&oacute; digital. Web 2.0 i xarxes socials.<br>
+ * @author Máximo Fernández Riera<br
+ * Taller de Java para programadores<br>
  * Universitat Oberta de Catalunya (UOC)
  * @version 2.0
  */
 public class ChessBoard {
-
-    private final String horizontal = "\u2500";
-    private final String vertical = "\u2502";
-    private final String top = "\u252C";
-    private final String bottom = "\u2534";
-    private final String left = "\u251C";
-    private final String right = "\u2524";
-    private final String center = "\u253C";
-    private final String top_left = "\u250C";
-    private final String top_right = "\u2510";
-    private final String bottom_left = "\u2514";
-    private final String bottom_right = "\u2518";
-    private final String NL = System.getProperty("line.separator");
-    private final String space = " ";
-
-
-
+    
     private int rows = 8;
     private char cols = 'a';
     private final Cell[][] cells = new Cell[8][8];
