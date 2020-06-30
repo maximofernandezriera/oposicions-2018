@@ -3,12 +3,11 @@
  * Model object for ChessPlayer.
  *
  * @author Máximo Fernández Riera<br
- * Taller de Java para programadores<br>
- * Universitat Oberta de Catalunya (UOC)
+ * Taller de Java para programadores<br> Universitat Oberta de Catalunya (UOC)
  * @version 2.0
  */
 public class ChessBoard {
-    
+
     private int rows = 8;
     private char cols = 'a';
     private final Cell[][] cells = new Cell[8][8];
@@ -211,9 +210,24 @@ public class ChessBoard {
         return this.cells[positionX][positionY];
     }
 
+    /**
+     * *1. Recuperamos el objeto Cell que está en la initialPosition que le
+     * pasamos como parámetro. 2. Miramos si dentro de la Cell recuperada en el
+     * punto anterior existe o no una Piece. Lo podemos comprovar con
+     * celdaInicial.hasPiece() 3. Si existe una Piece en la Cell, la recuperamos
+     * con celdaInicial.getPiece() 3.1. Asignamos la Piece recuperada en el
+     * punto anterior a la nueva posición finalPosition, con el método
+     * setPiece() de la propia clase ChessBoard 3.2. Como punto final,
+     * eliminamos la Piece de la celdaInicial; lo podemos hacer con el método
+     * celdaInicial.empty()
+     *
+     * @param initialPosition
+     * @param finalPosition
+     */
     public void movePiece(String initialPosition, String finalPosition) {
         if (!this.getCell(finalPosition).hasPiece()) {
             this.setPiece(this.getCell(initialPosition).getPiece(), finalPosition);
+            this.getCell(initialPosition).empty();
         }
     }
 

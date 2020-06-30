@@ -58,7 +58,7 @@ public class Cell {
         return sb.toString();
     }
 
-    private void empty() {
+    public void empty() {
         this.piece = null;
     }
 
