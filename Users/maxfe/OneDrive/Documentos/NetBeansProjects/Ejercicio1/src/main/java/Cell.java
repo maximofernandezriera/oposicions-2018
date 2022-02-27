@@ -32,11 +32,7 @@ public class Cell {
     }
 
     public boolean hasPiece() {
-        if (this.getPiece() != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.getPiece() != null;
     }
 
     @Override
